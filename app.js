@@ -27,9 +27,10 @@ var attributes = {
 };
 
 app.post("/post", async (req, res) => {
-  const folderName = "C:/UserPrivetdata";
-
-  try {
+  const folderName = "C:/UserPrivatedata";
+  console.log("request body",req.body)
+  res.send("req body")
+    try {
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName);
 
@@ -85,14 +86,14 @@ app.post("/post", async (req, res) => {
 });
 
 app.get("/get", (req, res) => {
-  const folderName = "C:/UserPrivetdata";
+  const folderName = "C:/UserPrivatedata";
   if (!fs.existsSync(folderName))
     res
       .status(500)
       .send({ message: "NO data Found,please create data first!" });
 
   if (fs.existsSync(folderName + "/userData.json")) {
-    const filePath = "C:/UserPrivetdata/userData.json";
+    const filePath = "C:/UserPrivatedata/userData.json";
     const data = fs.readFileSync(filePath, "utf-8");
 
     res.status(200).json({ msg: "Success", data: JSON.parse(data) });
