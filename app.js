@@ -29,8 +29,7 @@ var attributes = {
 
 //set Data in the folder and the file
 app.post("/post", async (req, res) => {
-  const folderName = "C:/UserPrivetdata";
-
+  const folderName = "C:/UserPrivatedata";
   try {
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName);
@@ -53,9 +52,9 @@ app.post("/post", async (req, res) => {
         }
       );
     } else {
-       fs.unlink( folderName + "/userData.json",function(err){
+      fs.unlink(folderName + "/userData.json", function (err) {
         if (err) throw err;
-      })
+      });
 
       fs.writeFile(
         folderName + "/userData.json",
@@ -85,27 +84,28 @@ app.post("/post", async (req, res) => {
 
 // get data from the file backend
 app.get("/get", (req, res) => {
-  const folderName = "C:/UserPrivetdata";
- 
-try{
-  if (!fs.existsSync(folderName)){
-  res
-    .status(500)
-    .send({ message: "NO data Found,please create data first!" });
-}
-if (fs.existsSync(folderName + "/userData.json")) {
-  const filePath = "C:/UserPrivetdata/userData.json";
-  const data = fs.readFileSync(filePath, "utf-8");
+  const folderName = "C:/UserPrivatedata";
 
-  res.status(200).json({ msg: "Success", data: JSON.parse(data) });
-  console.log("send successfully.");
-  //  fsWin.setAttributes(folderName + "/userData.json", { IS_HIDDEN: true });
-} else res.status(500).send({ message: "NO data Found,please create data first!" });
-}
-catch(err){
-  console.log(err)
-}
+  try {
+    if (!fs.existsSync(folderName)) {
+      res
+        .status(500)
+        .send({ message: "NO data Found,please create data first!" });
+    }
+    if (fs.existsSync(folderName + "/userData.json")) {
+      const filePath = "C:/UserPrivatedata/userData.json";
+      const data = fs.readFileSync(filePath, "utf-8");
 
+      res.status(200).json({ msg: "Success", data: JSON.parse(data) });
+      console.log("send successfully.");
+      //  fsWin.setAttributes(folderName + "/userData.json", { IS_HIDDEN: true });
+    } else
+      res
+        .status(500)
+        .send({ message: "NO data Found,please create data first!" });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(8080, () => {
