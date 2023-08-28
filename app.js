@@ -26,7 +26,7 @@ var attributes = {
   IS_UNPINNED: true,
   IS_PINNED: false,
 };
-
+//*Note- First run python/node server then react
 //set Data in the folder and the file
 app.post("/post", async (req, res) => {
   const folderName = "C:/UserPrivatedata";
@@ -81,7 +81,7 @@ app.post("/post", async (req, res) => {
     console.error(err);
   }
 });
-
+//*Note- First run python/node server then react
 // get data from the file backend
 app.get("/get", (req, res) => {
   const folderName = "C:/UserPrivatedata";
@@ -107,7 +107,7 @@ app.get("/get", (req, res) => {
     console.log(err);
   }
 });
-
+//*Note- First run python/node server then react
 app.listen(8080, () => {
   try {
     console.log("connection successful");
